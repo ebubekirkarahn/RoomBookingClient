@@ -1,0 +1,26 @@
+<h1> {{room.id == null ? 'Add' : 'Edit'}} Room</h1>
+
+<div class="bg-warning p-5" *ngIf="message"  >{{message}}</div>
+
+<form [formGroup]="roomForm" >
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" placeholder="room name" formControlName="roomName" required >
+    <div class="alert alert-danger" *ngIf="roomForm.controls['roomName'].invalid && roomForm.controls['roomName'].dirty" >Room name cannot be blank</div>
+
+  </div>
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input type="text" class="form-control" id="location" placeholder="location" formControlName="location" required>
+    <div class="alert alert-danger" *ngIf="roomForm.controls['location'].invalid && roomForm.controls['location'].dirty" >Location cannot be blank</div>
+  </div>
+
+  <h2>This room can accomodate:</h2>
+
+  <div class="form-group" *ngFor="let layout of layouts">
+    <label for="layout{{layout}}" >{{layoutEnum[layout]}}</label>
+    <input type="number" class="form-control" id="layout{{layout}}" formControlName="layout{{layout}}">
+  </div>
+
+  <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="roomForm.invalid" >Save</button>
+</form>

@@ -1,0 +1,66 @@
+<h1>{{booking?.id == null ? 'Add' : 'Edit'}} Booking</h1>
+
+<div class="bg-warning p-5" *ngIf="message">{{message}}</div>
+
+<form *ngIf="dataLoaded">
+  <div class="row">
+    <div class="form-group col-4">
+      <label for="date">Date</label>
+      <input type="date" class="form-control" id="date" [(ngModel)]="booking.date" name="date" >
+    </div>
+
+    <div class="form-group col-4">
+      <label for="startTime">Start time</label>
+      <input type="time" class="form-control" id="startTime" [(ngModel)]="booking.startTime" name="startTime" >
+    </div>
+
+    <div class="form-group col-4">
+      <label for="endTime">End time</label>
+      <input type="time" class="form-control" id="endTime" [(ngModel)]="booking.endTime" name="endTime" >
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group col-5">
+      <label for="room">Room</label>
+      <select class="form-control" id="room" [(ngModel)]="booking.room" name="room" >
+        <option *ngFor="let room of rooms" [ngValue]="room" >{{room.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-5">
+      <label for="layout">Layout</label>
+      <select class="form-control" id="layout" [(ngModel)]="booking.layout" name="layout" >
+        <option *ngFor="let layout of layouts"  [ngValue]="layoutEnum[layout]" >{{layoutEnum[layout]}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-2">
+      <label for="participants">Participants</label>
+      <input type="number" class="form-control" id="participants" [(ngModel)]="booking.participants" name="participants"  >
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="form-group col-6">
+      <label for="layout">User</label>
+      <select class="form-control" id="user" [(ngModel)]="booking.user" name="user">
+        <option *ngFor="let user of users" [ngValue]="user" >{{user.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-6">
+      <label for="title">Meeting title</label>
+      <input type="text" class="form-control" id="title" [(ngModel)]="booking.title" name="title" >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-primary" (click)="onSubmmit()" >Save</button>
+    </div>
+  </div>
+</form>

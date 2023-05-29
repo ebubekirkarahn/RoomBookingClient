@@ -1,0 +1,33 @@
+<h1>Rooms Admin</h1>
+
+<a class="btn btn-warning mb-3" (click)="addRoom()" *ngIf="isAdminUser"  >add</a>
+<div class="row">
+  <div class="col-6">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor = "let room of rooms" >
+        <td>{{room.id}}</td>
+        <td>{{room.name}}</td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="setRoom(room.id)"  >view</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div *ngIf="loadingData">{{message}}</div>
+  </div>
+  <div class="col-6">
+    <app-room-detail *ngIf="action === 'view'" [room]="selectedRoom" (dataChangedEvent)="loadData()" ></app-room-detail>
+    <app-room-edit *ngIf="action === 'edit'" [room]="selectedRoom" (dataChangedEvent)="loadData()" ></app-room-edit>
+  </div>
+</div>
+
+
+

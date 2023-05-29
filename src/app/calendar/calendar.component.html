@@ -1,0 +1,39 @@
+<h1>Room Booking System</h1>
+
+<h2>The following meetings are taking place on: <input type="date" [(ngModel)]="selectedDate" name="selectedDate" (change)="dateChanged()"  /></h2>
+
+<a class="btn btn-primary mt-3 mb-5" (click)="addBooking()" *ngIf="isAdminUser" >New Booking</a>
+
+<div *ngIf="message">{{message}}</div>
+<div *ngIf="dataLoaded">
+
+  <h3 class="mt-5" *ngIf="bookings.length === 0"  >There are no meetings currently scheduled for this date.</h3>
+
+  <div class="row row-striped" *ngFor="let booking of bookings" >
+    <div class="col-2 text-right">
+      <h1 class="display-4"><span class="badge badge-secondary">{{booking.getDateAsDate() | date:'dd'}}</span></h1>
+      <h2>{{booking.getDateAsDate() | date:'MMM'}}</h2>
+    </div>
+    <div class="col-10">
+      <h3 class="text-uppercase"><strong>{{booking.title}}</strong></h3>
+      <ul class="list-inline">
+        <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i>{{booking.getDateAsDate() | date:'EEE'}}</li>
+        <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i>{{booking.startTime}} - {{booking.endTime}}</li>
+        <li class="list-inline-item"><i class="fa fa-location-arrow" aria-hidden="true"></i>{{booking.room.name}}</li>
+      </ul>
+      <div class="row">
+        <div class="col-6">
+          <p class="mb-0">Booked by : {{booking.user.name}}</p>
+          <p class="mb-0">Room layout: {{booking.layout}}</p>
+          <p>Participants: {{booking.participants}}</p>
+        </div>
+        <div class="col-6">
+          <a class="btn btn-warning" (click)="editBooking(booking.id)" *ngIf="isAdminUser">Amend</a>
+          <a class="btn btn-danger" (click)="deleteBooking(booking.id)" *ngIf="isAdminUser">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<p class="mt-5">The design of this page is taken from <a href="https://bootsnipp.com/snippets/VgzeR">https://bootsnipp.com/snippets/VgzeR</a></p>
